@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Graph Quiz - Test your understanding of Graph algorithms with interactive questions.">
+<title>Graphs | DSA Quiz Tracker</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --accent: #00ffcc;
+  --accent-dark: #00e6b5;
+  --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 60px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  margin: auto;
+}
+
+h1 {
+  color: var(--accent);
+  margin-top: 0px;
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.category-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: var(--accent);
+  color: #000;
+  padding: 8px 14px;
+  margin: 6px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 8px rgba(0, 255, 200, 0.2);
+}
+
+.category-btn:hover {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+.btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 12px 28px;
+  margin: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+.option {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  margin: 12px 0;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 5px rgba(0, 255, 200, 0.1);
+}
+
+.option:hover {
+  background: rgba(0, 255, 200, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+}
+
+#result {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-top: 20px;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent);
+  text-align: center;
+  line-height: 24px;
+  color: #000;
+  font-weight: bold;
+  transition: width 0.3s;
+  font-size: 0.8rem;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+</style>
+</head>
+
+<body>
+<main class="container" id="quizBox">
+  <h1>🔗 Graphs Quiz</h1>
+
+  <!-- 🔹 Top AdSense Ad -->
+  <div style="margin-bottom:20px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+         data-ad-slot="1111111111"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+  </div>
+
+  <h2 id="questionText">Loading question...</h2>
+  <div id="options"></div>
+
+  <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+
+  <div id="result" style="margin-top:20px;"></div>
+
+  <div>
+    <button class="btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button class="btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdFIgJrOyGqpvvZ1ipbroX0ec5bP1_UIzl9xkwcmsHtan7G2Q/viewform')">💬 Feedback</button>
+  </div>
+
+  <!-- 🔹 Bottom AdSense Ad -->
+  <div style="margin-top:25px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" 
+         data-ad-slot="2222222222"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <footer>© 2025 DSA Quiz Tracker™ | All Rights Reserved</footer>
+</main>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+let quizData = [
+    {cat:"Graph Algorithms",q:"Dijkstra complexity (min-heap)?",a:["O(E log V)","O(V^2)","O(VE)","O(E+V)"],c:"O(E log V)"},
+  {cat:"Graph Algorithms",q:"Which algorithm is used to detect a cycle in an undirected graph?",a:["Dijkstra","Prim’s","DFS","Kruskal"],c:"DFS"},
+  {cat:"Graph Algorithms",q:"Which algorithm finds the shortest path in a weighted graph with no negative edges?",a:["Dijkstra","Bellman-Ford","Floyd-Warshall","Prim’s"],c:"Dijkstra"},
+  {cat:"Graph Algorithms",q:"Which algorithm works even with negative edge weights?",a:["Dijkstra","Bellman-Ford","Prim’s","Kruskal"],c:"Bellman-Ford"},
+  {cat:"Graph Algorithms",q:"Which algorithm finds the Minimum Spanning Tree (MST)?",a:["Kruskal","Bellman-Ford","Dijkstra","Floyd-Warshall"],c:"Kruskal"},
+  {cat:"Graph Algorithms",q:"Prim’s Algorithm is based on which technique?",a:["Divide & Conquer","Greedy","Dynamic Programming","Backtracking"],c:"Greedy"},
+  {cat:"Graph Algorithms",q:"Which algorithm can find the shortest paths between all pairs of vertices?",a:["Floyd-Warshall","Dijkstra","Kruskal","Prim’s"],c:"Floyd-Warshall"},
+  {cat:"Graph Algorithms",q:"Kruskal’s Algorithm uses which data structure?",a:["Heap","Queue","Disjoint Set (Union-Find)","Stack"],c:"Disjoint Set (Union-Find)"},
+  {cat:"Graph Algorithms",q:"Breadth-First Search (BFS) uses which data structure?",a:["Stack","Queue","Heap","Tree"],c:"Queue"},
+  {cat:"Graph Algorithms",q:"Depth-First Search (DFS) uses which data structure?",a:["Queue","Stack","Heap","Graph"],c:"Stack"},
+  {cat:"Graph Algorithms",q:"What is the time complexity of BFS on a graph?",a:["O(V+E)","O(V²)","O(E log V)","O(VE)"],c:"O(V+E)"},
+  {cat:"Graph Algorithms",q:"Topological Sorting applies only to which type of graph?",a:["Directed Acyclic Graph","Undirected Graph","Weighted Graph","Complete Graph"],c:"Directed Acyclic Graph"},
+  {cat:"Graph Algorithms",q:"Which algorithm is used to detect a cycle in a directed graph?",a:["DFS","BFS","Kruskal","Prim’s"],c:"DFS"},
+  {cat:"Graph Algorithms",q:"Which algorithm helps to find the strongly connected components?",a:["Kosaraju","Prim’s","Kruskal","Dijkstra"],c:"Kosaraju"},
+  {cat:"Graph Algorithms",q:"In an adjacency matrix representation, space complexity is?",a:["O(V+E)","O(V²)","O(E)","O(V log V)"],c:"O(V²)"},
+];
+
+let category = "Graph Algorithms";
+let filteredQuestions = quizData.filter(q => q.cat === category);
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  if (filteredQuestions.length === 0) {
+    document.getElementById("quizBox").innerHTML = "<h2>No questions found for this category!</h2>";
+    return;
+  }
+
+  const q = filteredQuestions[current];
+  document.getElementById("questionText").innerText = q.q;
+  const optionsBox = document.getElementById("options");
+  optionsBox.innerHTML = "";
+
+  q.a.forEach(opt => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.innerText = opt;
+    div.onclick = () => checkAnswer(opt);
+    optionsBox.appendChild(div);
+  });
+
+  updateProgress();
+}
+
+function checkAnswer(selected) {
+  const q = filteredQuestions[current];
+  if (selected === q.c) score++;
+  document.querySelectorAll(".option").forEach(opt => {
+    opt.onclick = null;
+    if (opt.innerText === q.c) opt.style.background = "rgba(0,255,100,0.3)";
+    else if (opt.innerText === selected) opt.style.background = "rgba(255,0,0,0.3)";
+  });
+}
+
+function nextQuestion() {
+  current++;
+  if (current < filteredQuestions.length) loadQuestion();
+  else showResult();
+}
+
+function showResult() {
+  document.getElementById("quizBox").innerHTML = `
+    <h1>✅ Quiz Completed!</h1>
+    <p>You scored ${score} out of ${filteredQuestions.length}</p>
+    <button class='btn' onclick="window.location.href='index.html'">🏠 Go Home</button>
+    <button class='btn' 
+  onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdFIgJrOyGqpvvZ1ipbroX0ec5bP1_UIzl9xkwcmsHtan7G2Q/viewform')">
+  💬 Feedback
+</button>
+
+    <footer>© 2025 DSA Quiz Tracker™ | All Rights Reserved</footer>
+  `;
+}
+
+function updateProgress() {
+  const percent = ((current ) / filteredQuestions.length) * 100;
+  const bar = document.getElementById("progressBar");
+  bar.style.width = percent + "%";
+  bar.textContent = Math.round(percent) + "%";
+}
+
+loadQuestion();
+</script>
+</body>
+</html>

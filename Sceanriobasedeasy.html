@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Scenario Based Quiz - Test your understanding of Situation.">
+<title>Scenario Based| DSA Quiz Tracker</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --accent: #00ffcc;
+  --accent-dark: #00e6b5;
+  --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: #fff;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 60px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  margin: auto;
+}
+
+h1 {
+  color: var(--accent);
+  margin-top: 0px;
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.category-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: var(--accent);
+  color: #000;
+  padding: 8px 14px;
+  margin: 6px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 8px rgba(0, 255, 200, 0.2);
+}
+
+.category-btn:hover {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+.btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  padding: 12px 28px;
+  margin: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.2);
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.4);
+}
+
+.option {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  margin: 12px 0;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+  font-size: 0.9rem;
+  box-shadow: 0 0 5px rgba(0, 255, 200, 0.1);
+}
+
+.option:hover {
+  background: rgba(0, 255, 200, 0.2);
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+}
+
+#result {
+  font-size: 1rem;
+  color: var(--accent);
+  margin-top: 20px;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent);
+  text-align: center;
+  line-height: 24px;
+  color: #000;
+  font-weight: bold;
+  transition: width 0.3s;
+  font-size: 0.8rem;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.85rem;
+  color: #ccc;
+}
+</style>
+</head>
+
+<body>
+<main class="container" id="quizBox">
+  <h1>🏞️ Scenario based (3–6 LPA) Quiz</h1>
+
+  <!-- 🔹 Top AdSense Ad -->
+  <div style="margin-bottom:20px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8959550597354203"
+         data-ad-slot="1111111111"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar">0%</div>
+  </div>
+
+  <h2 id="questionText">Loading question...</h2>
+  <div id="options"></div>
+
+  <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+
+  <div id="result" style="margin-top:20px;"></div>
+
+  <div>
+    <button class="btn" onclick="window.location.href='index.html'">🏠 Home</button>
+    <button class="btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdFIgJrOyGqpvvZ1ipbroX0ec5bP1_UIzl9xkwcmsHtan7G2Q/viewform')">💬 Feedback</button>
+  </div>
+
+  <!-- 🔹 Bottom AdSense Ad -->
+  <div style="margin-top:25px;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8959550597354203" 
+         data-ad-slot="2222222222"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <footer>© 2025 DSA Quiz Tracker™ | All Rights Reserved</footer>
+</main>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<script>
+let quizData = [
+   {cat:"Scenario based", q:"You are building an analytics dashboard and need to find the most viewed product from a list of daily views. Which DSA concept helps you find it efficiently?", a:["Sorting","Hash Map","Linked List","Stack"], c:"Hash Map"},
+{cat:"Scenario based", q:"In a chat app, you need to check if two usernames are anagrams before assigning personalized avatars. Which method would you use?", a:["Counting frequency of letters","Using substring search","Recursion","Binary search"], c:"Counting frequency of letters"},
+{cat:"Scenario based", q:"While validating nested tags in an HTML editor, which data structure helps check whether tags are properly closed?", a:["Queue","Stack","Linked List","Heap"], c:"Stack"},
+{cat:"Scenario based", q:"In an online ticket booking system, customers are served in the order they arrive. Which data structure models this best?", a:["Stack","Queue","Tree","Graph"], c:"Queue"},
+{cat:"Scenario based", q:"In a login system, you want to quickly verify if an entered email exists among millions of users. What structure helps fastest lookup?", a:["Array","Binary Tree","Hash Table","Stack"], c:"Hash Table"},
+{cat:"Scenario based", q:"While scheduling CPU tasks to minimize idle time, which algorithmic strategy can you use?", a:["Divide and Conquer","Dynamic Programming","Greedy Approach","Backtracking"], c:"Greedy Approach"},
+{cat:"Scenario based", q:"You are designing a GPS navigation feature to find the shortest route between cities. Which algorithm suits best?", a:["DFS","Kruskal's","Dijkstra's Algorithm","Prim's"], c:"Dijkstra's Algorithm"},
+{cat:"Scenario based", q:"To organize files and folders in a computer, which data structure resembles this hierarchy?", a:["Graph","Array","Tree","Stack"], c:"Tree"},
+{cat:"Scenario based", q:"A news feed shows top trending articles in real-time. Which structure efficiently keeps track of top k trending items?", a:["Stack","Queue","Min Heap","Hash Map"], c:"Min Heap"},
+{cat:"Scenario based", q:"In a payment app, you need to find the minimum number of coins to make a transaction value. Which technique fits best?", a:["Greedy","Dynamic Programming","Recursion","Brute Force"], c:"Dynamic Programming"},
+{cat:"Scenario based", q:"You are implementing an undo/redo feature in a text editor. Which data structure fits naturally for this?", a:["Stack","Linked List","Array","Queue"], c:"Linked List"},
+{cat:"Scenario based", q:"In a file explorer, you want to display all subfolders inside a directory. Which approach can help traverse nested folders?", a:["Recursion","Greedy","Backtracking","Queue"], c:"Recursion"},
+{cat:"Scenario based", q:"In an e-commerce app, you need to display products sorted by price. Which algorithm helps in arranging them efficiently?", a:["DFS","Merge Sort","BFS","Binary Search"], c:"Merge Sort"},
+{cat:"Scenario based", q:"While searching for a user's name in a sorted database, which algorithm gives the best performance?", a:["Linear Search","Binary Search","DFS","Recursion"], c:"Binary Search"},
+{cat:"Scenario based", q:"In a social network, you need to suggest friends of friends. Which algorithm can explore connections layer by layer?", a:["DFS","BFS","Prim’s","Kruskal’s"], c:"BFS"},
+];
+
+let category = "Scenario based";
+let filteredQuestions = quizData.filter(q => q.cat === category);
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  if (filteredQuestions.length === 0) {
+    document.getElementById("quizBox").innerHTML = "<h2>No questions found for this category!</h2>";
+    return;
+  }
+
+  const q = filteredQuestions[current];
+  document.getElementById("questionText").innerText = q.q;
+  const optionsBox = document.getElementById("options");
+  optionsBox.innerHTML = "";
+
+  q.a.forEach(opt => {
+    const div = document.createElement("div");
+    div.className = "option";
+    div.innerText = opt;
+    div.onclick = () => checkAnswer(opt);
+    optionsBox.appendChild(div);
+  });
+
+  updateProgress();
+}
+
+function checkAnswer(selected) {
+  const q = filteredQuestions[current];
+  if (selected === q.c) score++;
+  document.querySelectorAll(".option").forEach(opt => {
+    opt.onclick = null;
+    if (opt.innerText === q.c) opt.style.background = "rgba(0,255,100,0.3)";
+    else if (opt.innerText === selected) opt.style.background = "rgba(255,0,0,0.3)";
+  });
+}
+
+function nextQuestion() {
+  current++;
+  if (current < filteredQuestions.length) loadQuestion();
+  else showResult();
+}
+
+function showResult() {
+  document.getElementById("quizBox").innerHTML = `
+    <h1>✅ Quiz Completed!</h1>
+    <p>You scored ${score} out of ${filteredQuestions.length}</p>
+    <button class='btn' onclick="window.location.href='index.html'">🏠 Go Home</button>
+    <button class='btn' 
+  onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdFIgJrOyGqpvvZ1ipbroX0ec5bP1_UIzl9xkwcmsHtan7G2Q/viewform')">
+  💬 Feedback
+</button>
+
+    <footer>© 2025 DSA Quiz Tracker™ | All Rights Reserved</footer>
+  `;
+}
+
+function updateProgress() {
+  const percent = ((current ) / filteredQuestions.length) * 100;
+  const bar = document.getElementById("progressBar");
+  bar.style.width = percent + "%";
+  bar.textContent = Math.round(percent) + "%";
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
